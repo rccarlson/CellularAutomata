@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="CellularAutomata.fs" />
+    <Compile Include="BriansBrain.fs" />
+    <Compile Include="ConwaysGameOfLife.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+</Project>
