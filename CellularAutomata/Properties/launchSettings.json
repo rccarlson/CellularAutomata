@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "CellularAutomata": {
+      "commandName": "Project"
+    },
+    "Conway": {
+      "commandName": "Project",
+      "commandLineArgs": "conway"
+    },
+    "BriansBrain": {
+      "commandName": "Project",
+      "commandLineArgs": "brian"
+    }
+  }
+}

@@ -1,32 +1,27 @@
-﻿namespace CellularAutomata
+﻿module CellularAutomataDemo.BriansBrain
 
-module BriansBrainModule =
-  open CellularAutomataModule
+open CellularAutomataModule
   
-  type State = | Alive | Dying | Dead with override this.ToString() = match this with | Alive -> "A" | Dying -> "X" | Dead  -> "D"
-  type Cache = { LiveNeighbors : int }
+type State =
+  | Alive
+  | Dying
+  | Dead
 
-  type BriansBrain = Board<State>
+let rules state (neighborhood : State array) : State =
+  let liveNeighbors = neighborhood |> Array.filter (fun element -> element = Alive) |> Array.length
+  match state with
+  // If a square is on, it turns off.
+  | Alive -> Dying
+  // When a square turns off, it can't turn on in the very next iteration.
+  | Dying -> Dead
+  // If a square is off, it turns on if exactly two neighboring squares are on. 
+  | Dead when liveNeighbors = 2 -> Alive
+  | Dead -> Dead
 
-  let rules : Rule<State,Cache> array =
-    [|
-      fun state cache ->
-        match state with
-        // If a square is on, it turns off.
-        | Alive -> Some Dying
-        // When a square turns off, it can't turn on in the very next iteration.
-        | Dying -> Some Dead
-        // If a square is off, it turns on if exactly two neighboring squares are on. 
-        | Dead when cache.LiveNeighbors = 2 -> Some Alive
-        | _ -> None
-    |]
+let getNeighborhood = getMooreNeighborhood
 
-  let getNextBoard board =
-    let cacheGenerator x y board =
-      {
-        LiveNeighbors =
-          getMooreNeighborhood 1 x y board
-          |> Seq.filter (fun element -> element = Alive)
-          |> Seq.length
-      }
-    CellularAutomataModule.getNextBoard cacheGenerator rules board
+let stateToChar (state: State) : char =
+  match state with
+  | Alive -> 'O'
+  | Dying -> 'X'
+  | Dead  -> ' '
