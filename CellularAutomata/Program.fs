@@ -31,7 +31,7 @@ let main args =
     |> runSimulation
       ConwaysGameOfLife.stateToChar
       ConwaysGameOfLife.rules
-      ConwaysGameOfLife.getNeighborhood
+      getMooreNeighborhood
   | Some "brain"
   | Some "brian" ->
     createBoard width height
@@ -43,7 +43,7 @@ let main args =
     |> runSimulation
       BriansBrain.stateToChar
       BriansBrain.rules
-      BriansBrain.getNeighborhood
+      getMooreNeighborhood
 
   | Some arg -> Console.Error.WriteLine $"Argument {arg} is not valid"
 

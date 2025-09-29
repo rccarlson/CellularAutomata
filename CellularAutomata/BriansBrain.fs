@@ -1,7 +1,5 @@
 ﻿module CellularAutomataDemo.BriansBrain
 
-open CellularAutomataModule
-  
 type State =
   | Alive
   | Dying
@@ -16,9 +14,8 @@ let rules state (neighborhood : State array) : State =
   | Dying -> Dead
   // If a square is off, it turns on if exactly two neighboring squares are on. 
   | Dead when liveNeighbors = 2 -> Alive
+  // Otherwise, a square that is off stays off.
   | Dead -> Dead
-
-let getNeighborhood = getMooreNeighborhood
 
 let stateToChar (state: State) : char =
   match state with
